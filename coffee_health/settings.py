@@ -3,11 +3,18 @@ from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = 'your-secret-key'
-DEBUG = True
+# SECURITY
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'your-secret-key')  # Use environment variable on Render
+DEBUG = os.environ.get('DJANGO_DEBUG', 'True') == 'True'
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = [
+    os.environ.get('RENDER_EXTERNAL_HOSTNAME', '*'),  # Render auto hostname
+    'localhost',
+    '127.0.0.1',
+    'https://coffee-health-prediction.onrender.com',
+]
 
+# Installed apps
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -24,6 +31,7 @@ INSTALLED_APPS = [
     'api',
 ]
 
+# Middleware
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -38,10 +46,11 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'coffee_health.urls'
 
+# Templates
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'coffee_health' / 'templates'],  # ← add this
+        'DIRS': [BASE_DIR / 'coffee_health' / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -54,24 +63,31 @@ TEMPLATES = [
     },
 ]
 
-STATICFILES_DIRS = [
-    BASE_DIR / 'coffee_health' / 'static'
-]
-
 WSGI_APPLICATION = 'coffee_health.wsgi.application'
 
+# Database
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
+        'ENGINE': 'django.db.backends.sqlite3',  # Simple SQLite for Render
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
-STATIC_URL = 'static/'
+# Static files
+STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'  # Render collects static here
+STATICFILES_DIRS = [
+    BASE_DIR / 'coffee_health' / 'static'
+]
 
-# Enable CORS
+# CORS
 CORS_ALLOW_ALL_ORIGINS = True
 
+# REST Framework
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [],
 }
+
+# Security tweaks for production
+SECURE_BROWSER_XSS_FILTER = True
+SECURE_CONTENT_TYPE_NOSNIFF = True
