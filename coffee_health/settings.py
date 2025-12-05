@@ -6,7 +6,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'd0^(7m5tnx%dt+ky@(gv41l-oz=wtw8!oas+*)!jj@!s$-wgzw'
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['https://coffee-health-ai-predictions.onrender.com']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -84,5 +84,6 @@ REST_FRAMEWORK = {
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
 }
+
 
 
