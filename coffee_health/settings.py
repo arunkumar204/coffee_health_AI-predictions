@@ -3,7 +3,7 @@ from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = 'your-secret-key'
+SECRET_KEY = 'd0^(7m5tnx%dt+ky@(gv41l-oz=wtw8!oas+*)!jj@!s$-wgzw'
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']
@@ -84,4 +84,5 @@ REST_FRAMEWORK = {
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
 }
+
 
