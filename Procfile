@@ -1,1 +1,0 @@
-web: gunicorn coffee_health.wsgi --log-file -

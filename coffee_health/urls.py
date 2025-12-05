@@ -24,6 +24,7 @@ def home(request):
     return render(request, 'index.html')
 
 
+
 urlpatterns = [
     path('', home),
     path('admin/', admin.site.urls),

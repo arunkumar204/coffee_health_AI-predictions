@@ -1,14 +1,7 @@
-pip>=25.3
-setuptools>=68.0.0
-wheel
-
 Django==4.2.0
 djangorestframework==3.14.0
 django-cors-headers==4.0.0
-
 pandas==2.0.0
 numpy==1.24.0
 scikit-learn==1.2.0
-
-gunicorn
 joblib==1.2.0
