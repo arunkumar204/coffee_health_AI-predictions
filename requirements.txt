@@ -7,4 +7,6 @@ scikit-learn==1.4.0
 joblib==1.2.0
 gunicorn==21.2.0
 django-allauth==0.58.2
-djangorestframework-simplejwt==5.3.0  # ✅ ADD THIS LINE
+djangorestframework-simplejwt==5.3.0
+PyJWT==2.8.0          # Add this line
+cryptography==42.0.5   # Add this line
