@@ -2,7 +2,7 @@ Django==4.2.0
 djangorestframework==3.14.0
 django-cors-headers==4.0.0
 pandas==2.0.0
-numpy==1.24.3  # Compatible with Python 3.11
+numpy==1.26.0
 scikit-learn==1.2.0  # Your model's version
 joblib==1.2.0
 gunicorn==21.2.0
@@ -10,3 +10,4 @@ django-allauth==0.58.2
 djangorestframework-simplejwt==5.3.0
 PyJWT==2.8.0
 cryptography==42.0.5
+
