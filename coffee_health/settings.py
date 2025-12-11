@@ -6,8 +6,29 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'd0^(7m5tnx%dt+ky@(gv41l-oz=wtw8!oas+*)!jj@!s$-wgzw'
 DEBUG = True
 
-ALLOWED_HOSTS = ['https://coffee-health-ai-predictions.onrender.com']
+import os
+from pathlib import Path
 
+BASE_DIR = Path(__file__).resolve().parent.parent
+
+SECRET_KEY = 'd0^(7m5tnx%dt+ky@(gv41l-oz=wtw8!oas+*)!jj@!s$-wgzw'
+DEBUG = True
+
+# ✅ FIXED: Correct ALLOWED_HOSTS format and dynamic configuration
+ALLOWED_HOSTS = [
+    'localhost',
+    '127.0.0.1',
+    'coffee-health-ai-predictions.onrender.com',  # Without https://
+]
+
+# ✅ ADD: Dynamic host configuration for Render
+RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
+if RENDER_EXTERNAL_HOSTNAME:
+    ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
+
+# -------------------------
+# INSTALLED APPS
+# -------------------------
 INSTALLED_APPS = [
     # Default Django apps
     'django.contrib.admin',
@@ -114,8 +135,4 @@ REST_FRAMEWORK = {
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
 }
-
-
-
-
 
