@@ -9,6 +9,7 @@ DEBUG = True
 ALLOWED_HOSTS = ['https://coffee-health-ai-predictions.onrender.com']
 
 INSTALLED_APPS = [
+    # Default Django apps
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -16,7 +17,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    # Third-party
+    # Third-party apps
     'rest_framework',
     'corsheaders',
 
@@ -31,24 +32,40 @@ INSTALLED_APPS = [
     'api',
 ]
 
+# Required by Allauth
+SITE_ID = 1
+
+# -------------------------
+# MIDDLEWARE
+# -------------------------
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
-    'django.middleware.common.CommonMiddleware',
 
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.common.CommonMiddleware',
+
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+
+    # Allauth required middleware (must be after AuthenticationMiddleware)
+    'allauth.account.middleware.AccountMiddleware',
+
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+# -------------------------
+# URLS & TEMPLATES
+# -------------------------
 ROOT_URLCONF = 'coffee_health.urls'
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'coffee_health' / 'templates'],  # ← add this
+        'DIRS': [
+            BASE_DIR / 'coffee_health' / 'templates'
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -61,12 +78,22 @@ TEMPLATES = [
     },
 ]
 
+# -------------------------
+# STATIC FILES
+# -------------------------
+STATIC_URL = 'static/'
 STATICFILES_DIRS = [
     BASE_DIR / 'coffee_health' / 'static'
 ]
 
+# -------------------------
+# WSGI APPLICATION
+# -------------------------
 WSGI_APPLICATION = 'coffee_health.wsgi.application'
 
+# -------------------------
+# DATABASE
+# -------------------------
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -74,16 +101,20 @@ DATABASES = {
     }
 }
 
-STATIC_URL = 'static/'
-
-# Enable CORS
+# -------------------------
+# CORS SETTINGS
+# -------------------------
 CORS_ALLOW_ALL_ORIGINS = True
 
+# -------------------------
+# REST FRAMEWORK AUTH
+# -------------------------
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
 }
+
 
 
 
